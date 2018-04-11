@@ -1,17 +1,17 @@
 package Framework.HelperClasses;
 
-import Framework.Model.ModelClient;
+import Framework.Model.MenuModel;
 
 import java.util.ArrayList;
 
-import static Framework.HelperClasses.BoardTicTacToe.*;
+import static Framework.HelperClasses.TicTacToeBoard.*;
 
-public class AITicTacToe extends ModelClient {
+public class AITicTacToe /*extends MenuModel*/ {
     private int turn;
-    private BoardTicTacToe BT;
+    private TicTacToeBoard BT;
     private int[][] board;
 
-    public AITicTacToe(BoardTicTacToe BT, int[][] board) {
+    public AITicTacToe(TicTacToeBoard BT, int[][] board) {
         this.BT = BT;
         this.board = board;
         turn = 1;

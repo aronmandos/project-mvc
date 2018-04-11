@@ -1,16 +1,12 @@
 package Framework.Controller;
 
-import Framework.Model.ModelClient;
+import Framework.Model.MenuModel;
 //import Framework.View.ViewReversi;
-import Framework.View.ViewGameAbstract;
-import javafx.event.ActionEvent;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import Framework.StageManager;
 
-public class ControllerClient extends Controller<ModelClient> {
+public class MenuController extends Controller<MenuModel> {
 
-    public ControllerClient(ModelClient model) {
+    public MenuController(MenuModel model) {
         super(model);
     }
 
@@ -26,11 +22,16 @@ public class ControllerClient extends Controller<ModelClient> {
 
     public void Disconnect() { model.disconnectServer();}
 
-    public void tttView(ActionEvent event){
+
+    public void goToGame(String game) {
+        this.model.openGame(game);
+    }
+
+/*    public void tttView(ActionEvent event){
         model.newTicTacToe();
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        ControllerGameAbstract TTTcontroller = new ControllerGameAbstract(model);
-        ViewGameAbstract TTTview = new ViewGameAbstract(TTTcontroller, model);
+        AbstractGameController TTTcontroller = new AbstractGameController(model);
+        AbstractGameView TTTview = new AbstractGameView(TTTcontroller, model);
         Scene s=new Scene(TTTview);
         model.addView(TTTview);
         stage.setScene(s);
@@ -41,13 +42,13 @@ public class ControllerClient extends Controller<ModelClient> {
     public void reversiView(ActionEvent event){
         model.newReversi();
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        ControllerGameAbstract reversiController= new ControllerGameAbstract(model);
-        ViewGameAbstract reversiView = new ViewGameAbstract(reversiController, model);
+        AbstractGameController reversiController= new AbstractGameController(model);
+        AbstractGameView reversiView = new AbstractGameView(reversiController, model);
         Scene s=new Scene(reversiView);
         model.addView(reversiView);
         stage.setScene(s);
         stage.show();
-    }
+    }*/
 
 
 }

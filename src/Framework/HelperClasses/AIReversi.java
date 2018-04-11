@@ -5,10 +5,10 @@ import java.util.*;
 public class AIReversi {
     private int[][] p = new int[8][8];
     private HashMap<Integer, Integer> hmap = new HashMap<>();
-    private BoardReversi r;
+    private ReversiBoard r;
     private int[][] board;
 
-    public AIReversi(BoardReversi r, int[][] board) {
+    public AIReversi(ReversiBoard r, int[][] board) {
         this.r = r;
         this.board = board;
         determinePriority();

@@ -33,15 +33,22 @@ public class Server {
      */
     public void connect() {
         openSocket();
-        //starts a listener for messages from the server.
-        ExecutorService executor = Executors.newFixedThreadPool(1);
-        executor.execute(new MessageListener(this));
+        if (isConnected) {
+            //starts a listener for messages from the server.
+            ExecutorService executor = Executors.newFixedThreadPool(1);
+            executor.execute(new MessageListener(this));
+        }
+
     }
 
     /**
      * Disconnects from the server.
      */
     public void disconnect() {
+        if (!isConnected) {
+            System.out.println("No connection to disconnect.");
+            return;
+        }
         System.out.println("Closing server connection.");
         closeSocket();
     }
@@ -99,6 +106,9 @@ public class Server {
      * @param input A message for the server
      */
     public void send(String input){
+        if (!this.isConnected()) {
+            return;
+        }
         try {
             //Send the message to the server
             OutputStream os = socket.getOutputStream();
@@ -120,6 +130,7 @@ public class Server {
         Server server;
         InputStream is;
         BufferedReader br;
+        CommandHandler handler;
 
         /**
          * Creates a listener for server messages.
@@ -128,6 +139,7 @@ public class Server {
          */
         public MessageListener(Server server) {
             this.server = server;
+            this.handler = new CommandHandler();
 
             try {
                 is = server.getSocket().getInputStream();
@@ -158,7 +170,7 @@ public class Server {
                         run = false;
                     }
 
-                    CommandHandler.handle(line);
+                    this.handler.handle(line);
 
                 } catch (IOException exception) {
                     server.disconnect();

@@ -1,6 +1,7 @@
 package Framework.Controller;
 
 import Framework.Model.Model;
+import Framework.StageManager;
 
 abstract public class Controller<M extends Model> {
 

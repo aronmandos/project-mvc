@@ -1,45 +1,61 @@
 package Framework.Model;
 
+import Framework.GameManager;
 import Framework.HelperClasses.*;
-
-import java.net.Socket;
+import Framework.StageManager;
 
 /**
  * The main model for the application.
  */
-public class ModelClient extends Model {
+public class MenuModel extends Model {
     private String host = "localhost";
     private int port = 7789;
-    private BoardAbstract currentGame;
+    private AbstractBoard currentGame;
     private Server server;
+
+    private StageManager stageManager;
+    private GameManager gameManager;
 
     /**
      * The main model for the application.
      */
-    public ModelClient() {
+    public MenuModel(StageManager stageManager, GameManager gameManager) {
+        this.stageManager = stageManager;
+        this.gameManager = gameManager;
+
         server = new Server(host, port);
         notifyViews();
+    }
+
+    public void changeView(String name){
+        this.stageManager.showScene(name);
+    }
+
+    public void openGame(String name) {
+        if (this.gameManager.loadGame(name)) {
+            this.gameManager.openGame(name);
+        }
     }
 
     /**
      * Starts a new game of Tic Tac Toe.
      */
     public void newTicTacToe() {
-        currentGame = new BoardTicTacToe();
+        currentGame = new TicTacToeBoard();
     }
 
     /**
      * Starts a new game of Reversi.
      */
     public void newReversi(){
-        currentGame = new BoardReversi();
+        currentGame = new ReversiBoard();
     }
 
     /**
      * Returns the currently active game.
      * @return
      */
-    public BoardAbstract getCurrentGame() {
+    public AbstractBoard getCurrentGame() {
         return currentGame;
     }
 

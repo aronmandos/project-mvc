@@ -1,13 +1,14 @@
 package Framework.Controller;
 
-import Framework.Model.ModelClient;
+import Framework.Model.MenuModel;
+import Framework.StageManager;
 
-public class ControllerGameAbstract extends Controller<ModelClient> {
+public class AbstractGameController extends Controller<MenuModel> {
     public int[][] getBoard(){
         return model.getCurrentGame().getBoard();
     }
 
-    public ControllerGameAbstract(ModelClient model) {
+    public AbstractGameController(MenuModel model) {
         super(model);
     }
 

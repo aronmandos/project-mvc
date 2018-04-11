@@ -1,12 +1,12 @@
 package Framework.HelperClasses;
 
-public class BoardReversi extends BoardAbstract {
+public class ReversiBoard extends AbstractBoard {
     private static int p1 = 1;
     private static int p2 = 2;
     private static int row = 8;
     private static int column = 8;
 
-    public BoardReversi() {
+    public ReversiBoard() {
         super(row, column);
         initializeBoard();
         legalMoves(1);

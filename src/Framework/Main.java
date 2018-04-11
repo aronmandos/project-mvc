@@ -1,10 +1,9 @@
 package Framework;
 
-import Framework.Controller.ControllerClient;
-import Framework.Model.ModelClient;
-import Framework.View.ViewClient;
+import Framework.Controller.MenuController;
+import Framework.Model.MenuModel;
+import Framework.View.MenuView;
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -15,15 +14,24 @@ public class Main extends Application {
 	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Central central = new Central();
-		primaryStage.setTitle("Game Client");
+		StageManager stageManager = new StageManager(primaryStage);
+		GameManager gameManager = new GameManager(stageManager);
 
-		ModelClient model = new ModelClient();
-		ControllerClient controller = new ControllerClient(model);
-		ViewClient view = new ViewClient(controller, model);
+		//menu
+		MenuModel menuModel = new MenuModel(stageManager, gameManager);
+		MenuController menuController = new MenuController(menuModel);
+		System.out.println("menu views");
+		MenuView menuView = new MenuView(menuController, menuModel);
+		System.out.println("created view: " + menuView.getName());
+		stageManager.addView(menuView);
 
-		Scene s=new Scene(view);
-		primaryStage.setScene(s);
+		//TTT
+		/*GameModel gameModel = new GameModel();
+		GameController gameController = new GameController(gameModel, stageManager);
+		GameView gameView = new GameView(gameController, gameModel);
+		stageManager.addView(gameView);*/
+
+		stageManager.showScene("menu");
 		primaryStage.show();
 
 	}

@@ -1,11 +1,11 @@
 package Framework.HelperClasses;
 
-abstract public class BoardAbstract {
+abstract public class AbstractBoard {
     protected int[][] board;
     protected int row;
     protected int column;
 
-    BoardAbstract(int row, int column){
+    AbstractBoard(int row, int column){
         createBoard(row, column);
     }
 
@@ -60,9 +60,9 @@ abstract public class BoardAbstract {
         return y*column+x;
     }
 
-    public int coordinatesToInt (int x, int y){
-        return y*column+x;
-        }
+    public int coordinatesToInt (int x, int y) {
+        return y * column + x;
+    }
 
     public void updateBoard(){}
 }
