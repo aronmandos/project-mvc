@@ -2,27 +2,28 @@ package Framework.HelperClasses;
 
 public class CommandHandler {
 
-    String message = "niks";
 
-    public void handle(String message) {
+    public static void handle(String message) {
+        if (message == null) {
+            System.out.println("null van server");
+        } else {
+            switch (message) {
+                case "OK":
+                    System.out.println("!!!!!!!!!!    OK ontvangen");
+                    break;
 
-        this.message = message;
+                case "ERR":
+                    System.out.println("!!!!!!!!   ERR ontvangen");
 
-        switch (message) {
-            case "OK":
-                System.out.println("!!!!!!!!!!    OK ontvangen");
-                break;
+                case "SVR PLAYERLIST":
+                    System.out.println("!!!!!!!!!!! Playerlist ontvangen");
 
-            case "ERR":
-                System.out.println("!!!!!!!!   ERR ontvangen");
+                case "niks":
+                    System.out.println("Het ging helemaal mis");
 
-            case "SVR PLAYERLIST":
-                System.out.println("!!!!!!!!!!! Playerlist ontvangen");
-
-            case "niks":
-                System.out.println("Het ging helemaal mis");
-
+            }
         }
+
     }
 
 

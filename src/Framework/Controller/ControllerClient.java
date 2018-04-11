@@ -1,7 +1,5 @@
 package Framework.Controller;
 
-import Framework.Central;
-import Framework.HelperClasses.Client;
 import Framework.Model.ModelClient;
 //import Framework.View.ViewReversi;
 import Framework.View.ViewGameAbstract;
@@ -16,7 +14,7 @@ public class ControllerClient extends Controller<ModelClient> {
         super(model);
     }
 
-    public void Connect(){ model.establishConnection(); }
+    public void Connect(String host, int port){ model.connectServer(host, port); }
 
     public void SendToServer(String input){
         model.sendToServer(input);
@@ -26,7 +24,7 @@ public class ControllerClient extends Controller<ModelClient> {
         model.sendToServer("move " + move);
     }
 
-    public void logout() { model.logout();}
+    public void Disconnect() { model.disconnectServer();}
 
     public void tttView(ActionEvent event){
         model.newTicTacToe();
@@ -37,7 +35,8 @@ public class ControllerClient extends Controller<ModelClient> {
         model.addView(TTTview);
         stage.setScene(s);
         stage.show();
-    }
+        stage.setOnHiding( e -> {System.out.println("Closing Stage");} );
+        }
 
     public void reversiView(ActionEvent event){
         model.newReversi();

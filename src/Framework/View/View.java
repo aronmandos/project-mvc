@@ -9,6 +9,9 @@ abstract public class View<C extends Controller, M extends Model> extends VBox {
     protected C controller;
     protected M model;
 
+    /**
+     * Updates this view.
+     */
     abstract public void updateView();
 
     public View(C controller, M model) {

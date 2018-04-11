@@ -8,9 +8,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+	/**
+	 * Starts the application
+	 * @param primaryStage
+	 * @throws Exception
+	 */
 	@Override
-
-
 	public void start(Stage primaryStage) throws Exception {
 		Central central = new Central();
 		primaryStage.setTitle("Game Client");
@@ -22,5 +25,15 @@ public class Main extends Application {
 		Scene s=new Scene(view);
 		primaryStage.setScene(s);
 		primaryStage.show();
+
+	}
+
+	/**
+	 * Cleans up after application closes.
+	 */
+	@Override
+	public void stop(){
+		System.out.println("Stage is closing");
+		System.exit(0);
 	}
 }
