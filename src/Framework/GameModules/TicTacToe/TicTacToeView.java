@@ -18,6 +18,7 @@ public class TicTacToeView extends GameView {
         Board2d x = model.state.getBoard();
         System.out.println("tttview: " + x.getColumns() );
         board2dPane = new Board2dPane(model.state.getBoard());
+        board2dPane.addListener(this);
         this.getChildren().addAll(label, board2dPane.createElement());
     }
 
