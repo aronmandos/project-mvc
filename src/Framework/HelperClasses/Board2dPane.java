@@ -1,5 +1,6 @@
 package Framework.HelperClasses;
 
+import Framework.GameModules.TicTacToe.TicTacToeView;
 import javafx.scene.Parent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
@@ -7,6 +8,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import jdk.jshell.spi.ExecutionControl;
 
 public class Board2dPane  {
 
@@ -57,6 +59,11 @@ public class Board2dPane  {
     private void squareClick(int x, int y, boolean primary){
         System.out.println(" "+ x + y + primary);
         //controller.setPlayer(x, y, 1);
+        //TODO notifySquareClick();
+    }
+
+    public void addListener(TicTacToeView ticTacToeView) {
+        //TODO
     }
 
 
