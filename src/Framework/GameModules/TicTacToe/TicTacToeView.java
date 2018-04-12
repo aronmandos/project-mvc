@@ -18,7 +18,7 @@ public class TicTacToeView extends GameView {
         Board2d x = model.state.getBoard();
         System.out.println("tttview: " + x.getColumns() );
         board2dPane = new Board2dPane(model.state.getBoard());
-        this.getChildren().addAll(label/*TODO why dows this give a mysterious exception?, board2dPane.createElement()*/);
+        this.getChildren().addAll(label, board2dPane.createElement());
     }
 
     @Override

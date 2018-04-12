@@ -15,6 +15,7 @@ public class Board2dPane  {
 
     public Board2dPane(Board2d board) {
         this.board = board;
+        this.squares = new Square[this.board.getColumns()][this.board.getRows()];
         System.out.println("test1: ");
     }
 
