@@ -21,6 +21,7 @@ public class TicTacToeModel extends GameModel {
 
     public void startGame(int playerOnTurn) {
         state = new TicTacToeState(new Board2d(3, 3), playerOnTurn);
+        notifyViews();
     }
 
     @Override
@@ -28,12 +29,24 @@ public class TicTacToeModel extends GameModel {
         return state;
     }
 
+    /**
+     * acts on a move recieved from the server (both moves from player as opponent.)
+     * @param playerThatMoved
+     * @param move
+     */
     @Override
     public void implementMove(int playerThatMoved, String move) {
         //TODO change state
         state.getBoard().setPlayerAtPosition(1, 1, playerThatMoved);
+        notifyViews();
     }
 
+    /**
+     * Does a move (sends a move from player to the server.)
+     *
+     * @param x
+     * @param y
+     */
     @Override
     public void didMove(int x, int y) {
         //TODO check for valid move
