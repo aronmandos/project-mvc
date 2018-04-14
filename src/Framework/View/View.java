@@ -1,28 +1,26 @@
 package Framework.View;
 
 import Framework.Controller.Controller;
-import Framework.Enums.ScreenTypes;
 import Framework.Model.Model;
 import javafx.scene.layout.VBox;
 
+/**
+ * A View
+ * @param <C> A controller to notify of actions.
+ * @param <M> A model for retrieving data.
+ */
 abstract public class View<C extends Controller, M extends Model> extends VBox {
 
-    private ScreenTypes screenType;
     protected C controller;
     protected M model;
 
-    abstract public void updateView();
 
-    public View(C controller, M model, ScreenTypes screenType) {
+    public View(C controller, M model) {
 
         this.controller = controller;
         this.model = model;
-        this.screenType = screenType;
     }
 
-    public ScreenTypes getScreenType() {
-        return screenType;
-    }
 
     /**
      * Returns the name of this view.
@@ -30,4 +28,8 @@ abstract public class View<C extends Controller, M extends Model> extends VBox {
      */
     public abstract String getName();
 
+    /**
+     * Updates this view
+     */
+    abstract public void updateView();
 }

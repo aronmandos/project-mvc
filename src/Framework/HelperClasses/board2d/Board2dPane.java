@@ -1,6 +1,5 @@
-package Framework.HelperClasses;
+package Framework.HelperClasses.board2d;
 
-import Framework.GameModules.TicTacToe.TicTacToeView;
 import javafx.scene.Parent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
@@ -8,19 +7,29 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import jdk.jshell.spi.ExecutionControl;
 
-public class Board2dPane  {
+import java.util.ArrayList;
+
+/**
+ * The view element for a Board2d.
+ */
+public class Board2dPane {
 
     private Board2d board;
     private Square[][] squares;
+    private ArrayList<Board2dListener> listeners;
 
     public Board2dPane(Board2d board) {
         this.board = board;
         this.squares = new Square[this.board.getColumns()][this.board.getRows()];
+        this.listeners = new ArrayList<>();
         System.out.println("test1: ");
     }
 
+    /**
+     * creates the view elements
+     * @return
+     */
     public Parent createElement() {
         System.out.println("test2 ");
         Pane root = new Pane();
@@ -40,6 +49,9 @@ public class Board2dPane  {
         return root;
     }
 
+    /**
+     * Updates the symbols of the squares on this board
+     */
     public void updateSquares() {
         for (int x = 0; x < board.getColumns(); x++) {
             for (int y = 0; y < board.getRows(); y++) {
@@ -56,24 +68,56 @@ public class Board2dPane  {
         }
     }
 
+    /**
+     * Notifies listeners that a square was clicked.
+     *
+     * @param x x coordinate
+     * @param y y coordinate
+     * @param primary primary mouse button or secondary
+     */
     private void squareClick(int x, int y, boolean primary){
-        System.out.println(" "+ x + y + primary);
-        //controller.setPlayer(x, y, 1);
-        //TODO notifySquareClick();
+        for(Board2dListener listener: this.listeners){
+            listener.squareWasClicked(x, y, primary);
+        }
     }
 
-    public void addListener(TicTacToeView ticTacToeView) {
-        //TODO
+    /**
+     * Adds a listener to this board
+     * @param listener A listener to be added.
+     */
+    public void addListener(Board2dListener listener) {
+        this.listeners.add(listener);
     }
 
+    /**
+     * Removes a listener from this board
+     * @param listener A listener to be removed.
+     */
+    public void removeListener(Board2dListener listener) {
+        this.listeners.remove(listener);
+    }
 
+    /**
+     * clears all listeners
+     */
+    public void clearListeners() {
+        this.listeners.clear();
+    }
+
+    /**
+     * A Square on the board
+     */
     public class Square extends StackPane {
 
         private Text text = new Text();
         private int x;
         private int y;
 
-
+        /**
+         * Creates a square for a Board2d
+         * @param x
+         * @param y
+         */
         public Square(int x, int y) {
             System.out.println("test5 ");
             this.x = x;
@@ -97,8 +141,20 @@ public class Board2dPane  {
             System.out.println("test8 ");
             getChildren().addAll(square, text);
         }
+
+        /**
+         * Clears the text on this square.
+         */
         public void drawEmpty() { text.setText(" "); }
+
+        /**
+         * Draws a circle on this square.
+         */
         public void drawNought() { text.setText("O"); }
+
+        /**
+         * Draws a X on this square.
+         */
         public void drawCross() { text.setText("X"); }
     }
 }

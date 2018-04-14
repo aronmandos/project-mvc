@@ -1,4 +1,4 @@
-import Framework.HelperClasses.Board2d;
+import Framework.HelperClasses.board2d.Board2d;
 import Framework.HelperClasses.GameState;
 import Framework.HelperClasses.Move;
 

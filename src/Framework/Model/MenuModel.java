@@ -31,6 +31,10 @@ public class MenuModel extends Model {
         this.stageManager.showScene(name);
     }
 
+    /**
+     * Opens a loaded game.
+     * @param name The name of the game.
+     */
     public void openGame(String name) {
         if (this.gameManager.loadGame(name)) {
             this.gameManager.openGame(name);

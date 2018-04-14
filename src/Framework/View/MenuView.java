@@ -1,7 +1,6 @@
 package Framework.View;
 
 import Framework.Controller.MenuController;
-import Framework.Enums.ScreenTypes;
 import Framework.Model.MenuModel;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,7 +15,7 @@ public class MenuView extends View<MenuController, MenuModel>{
     private Label connectionLabel;
 
     public MenuView(MenuController controller, MenuModel model){
-        super(controller, model, ScreenTypes.MENU);
+        super(controller, model);
         System.out.println("creating view: " + name);
 
         connectionLabel = new Label("no connection");

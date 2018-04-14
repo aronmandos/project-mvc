@@ -1,20 +1,14 @@
 package Framework.GameModules.TicTacToe;
 
-import Framework.Controller.Controller;
 import Framework.Controller.GameController;
-import Framework.Controller.MenuController;
 import Framework.GameManager;
 import Framework.GameModules.AbstractGameModule;
 import Framework.Model.GameModel;
-import Framework.Model.MenuModel;
-import Framework.Model.Model;
-import Framework.StageManager;
 import Framework.View.GameView;
-import Framework.View.MenuView;
-import Framework.View.View;
 
-import java.lang.reflect.InvocationTargetException;
-
+/**
+ * A game module for the game Tic Tac Toe
+ */
 public class TicTacToeModule extends AbstractGameModule {
 
     public Class<TicTacToeModel> modelClass = TicTacToeModel.class;

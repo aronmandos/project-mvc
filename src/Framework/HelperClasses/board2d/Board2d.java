@@ -1,4 +1,4 @@
-package Framework.HelperClasses;
+package Framework.HelperClasses.board2d;
 
 public class Board2d {
 
@@ -17,6 +17,12 @@ public class Board2d {
         this.positions = new int[this.rows][this.columns];
     }
 
+    /**
+     * Whether the given position is whitin the board.
+     * @param x X coordinate
+     * @param y Y coordinate
+     * @return Whether the given position is whitin the board.
+     */
     public boolean positionInBounds(int x, int y) {
         if (x < columns && x >= 0 && y < rows && y >= 0) {
             return true;
@@ -25,10 +31,21 @@ public class Board2d {
         }
     }
 
+    /**
+     * Returns the player at tha given position.
+     * @param x X coordinate
+     * @param y Y coordinate
+     * @return The player at tha given position.
+     */
     public int getPlayerAtPosition(int x, int y){
         return positions[x][y];
     }
 
+    /**
+     * Sets the given player at tha given position.
+     * @param x X coordinate
+     * @param y Y coordinate
+     */
     public void setPlayerAtPosition(int x, int y, int playerId){
         positions[x][y] = playerId;
     }
@@ -50,28 +67,38 @@ public class Board2d {
         return amount;
     }
 
+    /**
+     * converts XY coordinates to a single number coordinate
+     * @param x X coordinate
+     * @param y Y coordinate
+     * @return number coordinate
+     */
     public int coordinatesToInt (int x, int y) {
         return y * columns + x;
     }
 
+    /**
+     * Returns the amount of rows of this board.
+     * @return The amount of rows of this board.
+     */
     public int getRows() {
         return rows;
     }
 
+    /**
+     * Returns the amount of columns of this board.
+     * @return The amount of columns of this board.
+     */
     public int getColumns() {
         return columns;
     }
 
+    /**
+     * Returns all positions of this board.
+     * @return The positions of this board.
+     */
     public int[][] getPositions() {
         return positions;
     }
-
-    /*private void init() {
-        for(int i=0; i<rows; i++) {
-            int[] row = positions[i];
-            for(int j=0; j<columns; j++) {
-            }
-        }
-    }*/
 
 }

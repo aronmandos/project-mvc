@@ -1,6 +1,5 @@
 package Framework;
 
-import Framework.Enums.ScreenTypes;
 import Framework.View.View;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

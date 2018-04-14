@@ -1,12 +1,15 @@
 package Framework.GameModules.TicTacToe;
 
-import Framework.HelperClasses.Board2d;
-import Framework.HelperClasses.Board2dPane;
+import Framework.HelperClasses.board2d.Board2d;
+import Framework.HelperClasses.board2d.Board2dListener;
+import Framework.HelperClasses.board2d.Board2dPane;
 import Framework.View.GameView;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-public class TicTacToeView extends GameView {
+/**
+ * The GUI for a game of Tic Tac Toe.
+ */
+public class TicTacToeView extends GameView<TicTacToeController, TicTacToeModel> implements Board2dListener {
 
     private static final String name = "ttt";
     private Board2dPane board2dPane;
@@ -22,13 +25,32 @@ public class TicTacToeView extends GameView {
         this.getChildren().addAll(label, board2dPane.createElement());
     }
 
+    /**
+     * Updates this view
+     */
     @Override
     public void updateView() {
         board2dPane.updateSquares();
     }
 
+    /**
+     * Returns the name of this view.
+     * @return The name of this view.
+     */
     @Override
     public String getName() {
         return name;
+    }
+
+    /**
+     * Handles a mouseclick.
+     *
+     * @param x x coordinate
+     * @param y y coordinate
+     * @param primary primary mouse button or secondary
+     */
+    @Override
+    public void squareWasClicked(int x, int y, boolean primary) {
+        controller.handleSquareClick(x, y, primary);
     }
 }
