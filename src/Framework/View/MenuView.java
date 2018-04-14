@@ -2,9 +2,11 @@ package Framework.View;
 
 import Framework.Controller.MenuController;
 import Framework.Model.MenuModel;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -15,15 +17,10 @@ public class MenuView extends View<MenuController, MenuModel>{
 
     private static final String name = "menu";
     private Label connectionLabel;
-    private Stage dialog = new Stage();
 
     public MenuView(MenuController controller, MenuModel model){
         super(controller, model);
         System.out.println("creating view: " + name);
-
-        //dialog.initOwner();
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.showAndWait();
 
         connectionLabel = new Label("no connection");
         Label serverHostLabel = new Label("Server host");
@@ -45,6 +42,8 @@ public class MenuView extends View<MenuController, MenuModel>{
         TextField testField = new TextField("help login");
         Button testBtn = new Button("Send test string");
 
+        Button modalBtn = new Button("Modal");
+
         Button gameBtn = new Button("Go to game");
         Button tttBtn = new Button("Play Tic-tac-toe");
         Button reversiBtn = new Button("Play Reversi");
@@ -61,8 +60,13 @@ public class MenuView extends View<MenuController, MenuModel>{
             controller.Disconnect();
         });
 
+
         testBtn.setOnAction( e->{
             controller.SendToServer(testField.getText());
+        });
+
+        modalBtn.setOnAction( e->{
+            displayDialog();
         });
 
         loginBtn.setOnAction( e->{
@@ -85,12 +89,39 @@ public class MenuView extends View<MenuController, MenuModel>{
             controller.goToGame("reversi");
         });
 
+
         this.getChildren().addAll(
                 connectionLabel, serverHostLabel, serverHostField, serverPortLabel, serverPortField, connectBtn,
-                disconnectBtn, testLabel, testField, testBtn, loginField, loginBtn, challengeBtn, gameBtn, tttBtn, reversiBtn
+                disconnectBtn, testLabel, testField, testBtn, loginField, loginBtn, challengeBtn, modalBtn, gameBtn, tttBtn, reversiBtn
         );
         model.addView(this);
         this.setPrefSize(500, 500);
+    }
+
+    public void displayDialog(){
+        Stage dialogStage = new Stage();
+
+        Pane y = new Pane();
+        Button confirmBtn = new Button("Confirm");
+        y.getChildren().add(confirmBtn);
+        Button denyBtn = new Button("Deny");
+        y.getChildren().add(denyBtn);
+        Scene dialogScene = new Scene(y);
+
+
+        confirmBtn.setOnAction( e2->{
+            System.out.println("confirm");
+            //TODO handle confirm/deny
+            dialogStage.close();
+        });
+        denyBtn.setOnAction( e2->{
+            System.out.println("deny");
+            dialogStage.close();
+        });
+
+        dialogStage.setScene(dialogScene);
+        dialogStage.initModality(Modality.APPLICATION_MODAL);
+        dialogStage.showAndWait();
     }
 
     /**

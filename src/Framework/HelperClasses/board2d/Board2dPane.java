@@ -30,7 +30,7 @@ public class Board2dPane {
      * creates the view elements
      * @return
      */
-    public Parent createElement() {
+    public Pane createElement() {
         System.out.println("test2 ");
         Pane root = new Pane();
         root.setPrefSize(board.getColumns() * 80, board.getRows() * 80);
