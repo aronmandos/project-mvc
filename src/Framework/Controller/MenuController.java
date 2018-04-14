@@ -1,5 +1,6 @@
 package Framework.Controller;
 
+import Framework.HelperClasses.Challenge;
 import Framework.Model.MenuModel;
 
 public class MenuController extends Controller<MenuModel> {
@@ -51,5 +52,9 @@ public class MenuController extends Controller<MenuModel> {
 
     public void sendChallenge(String opponentName, String gameType) {
         model.sendToServer("challenge \"" + opponentName + "\" \"" + gameType + "\"");
+    }
+
+    public void confirmChallenge(Challenge challengeNumber) {
+        model.sendToServer("challenge accept " + challengeNumber.getChallengeNumber());
     }
 }

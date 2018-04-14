@@ -95,7 +95,9 @@ public class MenuModel extends Model implements CommandHandlerListener{
      */
     public void connectServer(String host, int port) {
         server = new Server(host, port);
-        server.connect(new CommandHandler());
+        CommandHandler commandHandler = new CommandHandler();
+        commandHandler.addListener(this);
+        server.connect(commandHandler);
         notifyViews();
     }
 
@@ -141,6 +143,11 @@ public class MenuModel extends Model implements CommandHandlerListener{
     @Override
     public void receiveChallenge(String challenger, String challengeNumber, String gameType) {
         this.challenges.add(new Challenge(challenger, challengeNumber, gameType));
+        System.out.println("Even kijken...");
         notifyViews();
+    }
+
+    public ArrayList<Challenge> getChallenges() {
+        return challenges;
     }
 }

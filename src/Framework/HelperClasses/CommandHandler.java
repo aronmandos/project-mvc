@@ -1,7 +1,16 @@
 package Framework.HelperClasses;
 
+import Framework.HelperClasses.board2d.Board2dListener;
+
+import java.util.ArrayList;
+
 public class CommandHandler {
 
+    private ArrayList<CommandHandlerListener> listeners;
+
+    public CommandHandler() {
+        this.listeners = new ArrayList<>();
+    }
 
     public void handle(String message) {
         if (message == null) {
@@ -134,10 +143,14 @@ public class CommandHandler {
 
         String challenger = message.substring(indexes[0]+1, indexes[1]);
         // Sjors
-        String gametype = message.substring(indexes[2]+1, indexes[3]);
-        // Guess Game
-        String challengenumber = message.substring(indexes[4]+1, indexes[5]);
+        String challengenumber = message.substring(indexes[2]+1, indexes[3]);
         // 1
+        String gametype = message.substring(indexes[4]+1, indexes[5]);
+        // Guess Game
+
+        for (CommandHandlerListener listener : listeners) {
+            listener.receiveChallenge(challenger, challengenumber, gametype);
+        }
 
         //TODO: ask user to accept or decline
 
@@ -199,6 +212,29 @@ public class CommandHandler {
 
     private void parseDraw(String message) {
         //TODO handle draw
+    }
+
+    /**
+     * Adds a listener to this handler
+     * @param listener A listener to be added.
+     */
+    public void addListener(CommandHandlerListener listener) {
+        this.listeners.add(listener);
+    }
+
+    /**
+     * Removes a listener from this handler
+     * @param listener A listener to be removed.
+     */
+    public void removeListener(CommandHandlerListener listener) {
+        this.listeners.remove(listener);
+    }
+
+    /**
+     * clears all listeners
+     */
+    public void clearListeners() {
+        this.listeners.clear();
     }
 
 

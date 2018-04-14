@@ -1,7 +1,9 @@
 package Framework.View;
 
 import Framework.Controller.MenuController;
+import Framework.HelperClasses.Challenge;
 import Framework.Model.MenuModel;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -60,13 +62,8 @@ public class MenuView extends View<MenuController, MenuModel>{
             controller.Disconnect();
         });
 
-
         testBtn.setOnAction( e->{
             controller.SendToServer(testField.getText());
-        });
-
-        modalBtn.setOnAction( e->{
-            displayDialog();
         });
 
         loginBtn.setOnAction( e->{
@@ -98,30 +95,32 @@ public class MenuView extends View<MenuController, MenuModel>{
         this.setPrefSize(500, 500);
     }
 
-    public void displayDialog(){
-        Stage dialogStage = new Stage();
+    public void displayDialog(Challenge challenge){
+        Platform.runLater(() -> {
+            Stage dialogStage = new Stage();
 
-        Pane y = new Pane();
-        Button confirmBtn = new Button("Confirm");
-        y.getChildren().add(confirmBtn);
-        Button denyBtn = new Button("Deny");
-        y.getChildren().add(denyBtn);
-        Scene dialogScene = new Scene(y);
+            Pane y = new Pane();
+            Button confirmBtn = new Button("Confirm");
+            y.getChildren().add(confirmBtn);
+            Button denyBtn = new Button("Deny");
+            y.getChildren().add(denyBtn);
+            Scene dialogScene = new Scene(y);
 
+            confirmBtn.setOnAction( e2->{
+                System.out.println("confirm");
+                //TODO handle confirm/deny
+                controller.confirmChallenge(challenge);
+                dialogStage.close();
+            });
+            denyBtn.setOnAction( e2->{
+                System.out.println("deny");
+                dialogStage.close();
+            });
 
-        confirmBtn.setOnAction( e2->{
-            System.out.println("confirm");
-            //TODO handle confirm/deny
-            dialogStage.close();
+            dialogStage.setScene(dialogScene);
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
+            dialogStage.showAndWait();
         });
-        denyBtn.setOnAction( e2->{
-            System.out.println("deny");
-            dialogStage.close();
-        });
-
-        dialogStage.setScene(dialogScene);
-        dialogStage.initModality(Modality.APPLICATION_MODAL);
-        dialogStage.showAndWait();
     }
 
     /**
@@ -139,8 +138,15 @@ public class MenuView extends View<MenuController, MenuModel>{
     public void updateView() {
         System.out.println("updating views");
         this.updateConnected();
+        checkForChallenges();
+    }
 
-
+    public void checkForChallenges() {
+        if (!model.getChallenges().isEmpty()) {
+            for (Challenge challenge : model.getChallenges()) {
+                displayDialog(challenge);
+            }
+        }
     }
 
     /**
