@@ -3,13 +3,14 @@ package Framework;
 import Framework.Controller.GameController;
 import Framework.GameModules.AbstractGameModule;
 import Framework.GameModules.TicTacToe.TicTacToeModule;
+import Framework.HelperClasses.CommandHandlerListener;
 import Framework.Model.GameModel;
 import Framework.View.GameView;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
-public class GameManager {
+public class GameManager implements CommandHandlerListener {
 
     private HashMap<String, AbstractGameModule> gameList;
     private GameModel model;
@@ -73,4 +74,11 @@ public class GameManager {
             e.printStackTrace();
         }*/
     }
+
+    @Override
+    public void receiveChallenge(String challenger, String challengeNumber, String gameType) {
+        //do nothing
+    }
+
+
 }

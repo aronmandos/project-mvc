@@ -2,7 +2,7 @@ package Framework.Controller;
 
 import Framework.Model.GameModel;
 
-public class GameController<M extends GameModel>extends Controller<GameModel>{
+public abstract class GameController<M extends GameModel>extends Controller<GameModel>{
 
     public GameController(M model) {
         super(model);

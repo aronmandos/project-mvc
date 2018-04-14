@@ -2,6 +2,7 @@ package Framework.Model;
 
 import Framework.GameManager;
 import Framework.HelperClasses.*;
+import Framework.ServerManager;
 import Framework.StageManager;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class MenuModel extends Model implements CommandHandlerListener{
     private String host = "localhost";
     private int port = 7789;
     private AbstractBoard currentGame;
-    private Server server;
+    private ServerManager serverManager;
 
     private StageManager stageManager;
     private GameManager gameManager;
@@ -24,12 +25,12 @@ public class MenuModel extends Model implements CommandHandlerListener{
     /**
      * The main model for the application.
      */
-    public MenuModel(StageManager stageManager, GameManager gameManager) {
+    public MenuModel(StageManager stageManager, ServerManager serverManager, GameManager gameManager) {
         this.stageManager = stageManager;
+        this.serverManager = serverManager;
         this.gameManager = gameManager;
         this.challenges = new ArrayList<>();
 
-        server = new Server(host, port);
         notifyViews();
     }
 
@@ -94,10 +95,9 @@ public class MenuModel extends Model implements CommandHandlerListener{
      * connects to the server.
      */
     public void connectServer(String host, int port) {
-        server = new Server(host, port);
         CommandHandler commandHandler = new CommandHandler();
         commandHandler.addListener(this);
-        server.connect(commandHandler);
+        serverManager.connect(host, port, commandHandler);
         notifyViews();
     }
 
@@ -105,7 +105,8 @@ public class MenuModel extends Model implements CommandHandlerListener{
      * Disconnects from the server.
      */
     public void disconnectServer() {
-        server.disconnect();
+        if (serverManager == null) return;
+        serverManager.disconnect();
         notifyViews();
     }
 
@@ -115,11 +116,10 @@ public class MenuModel extends Model implements CommandHandlerListener{
      * @return The current server connection
      */
     public String getCurrentConnection() {
-        if (server.isConnected()) {
-            return server.getHost() + ":" + server.getPort();
-        } else {
-            return null;
-        }
+        if (serverManager == null) return null;
+        if (!serverManager.isConnected()) return null;
+        return serverManager.getHost() + ":" + serverManager.getPort();
+
 
     }
 
@@ -128,7 +128,8 @@ public class MenuModel extends Model implements CommandHandlerListener{
      * @param input A message to send to the server.
      */
     public void sendToServer(String input) {
-        server.send(input);
+        if (serverManager == null) return;
+        serverManager.send(input);
         notifyViews();
     }
 

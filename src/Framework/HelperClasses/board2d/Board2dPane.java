@@ -23,7 +23,6 @@ public class Board2dPane {
         this.board = board;
         this.squares = new Square[this.board.getColumns()][this.board.getRows()];
         this.listeners = new ArrayList<>();
-        System.out.println("test1: ");
     }
 
     /**
@@ -31,21 +30,17 @@ public class Board2dPane {
      * @return
      */
     public Pane createElement() {
-        System.out.println("test2 ");
         Pane root = new Pane();
         root.setPrefSize(board.getColumns() * 80, board.getRows() * 80);
-        System.out.println("test3: ");
         for (int x = 0; x < board.getColumns(); x++) {
             for (int y = 0; y < board.getRows(); y++) {
                 Square square = new Square(x, y);
                 squares[x][y] = square;
-                System.out.println("test6");
                 square.setTranslateX(x * 80);
                 square.setTranslateY(y * 80);
                 root.getChildren().add(square);
             }
         }
-        System.out.println("test4 ");
         return root;
     }
 
@@ -119,7 +114,6 @@ public class Board2dPane {
          * @param y
          */
         public Square(int x, int y) {
-            System.out.println("test5 ");
             this.x = x;
             this.y = y;
 
@@ -127,7 +121,6 @@ public class Board2dPane {
             Rectangle square = new Rectangle(80, 80);
             square.setFill(Color.WHITE);
             square.setStroke(Color.BLACK);
-            System.out.println("test7 ");
             square.setOnMouseClicked(event -> {
                 if(event.getButton() == MouseButton.PRIMARY) {
                     squareClick(x, y, true);
@@ -138,7 +131,6 @@ public class Board2dPane {
                 }
 
             });
-            System.out.println("test8 ");
             getChildren().addAll(square, text);
         }
 

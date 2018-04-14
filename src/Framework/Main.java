@@ -14,11 +14,12 @@ public class Main extends Application {
 	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		ServerManager serverManager = new ServerManager();
 		StageManager stageManager = new StageManager(primaryStage);
 		GameManager gameManager = new GameManager(stageManager);
 
 		//menu
-		MenuModel menuModel = new MenuModel(stageManager, gameManager);
+		MenuModel menuModel = new MenuModel(stageManager, serverManager, gameManager);
 		MenuController menuController = new MenuController(menuModel);
 		System.out.println("menu views");
 		MenuView menuView = new MenuView(menuController, menuModel);

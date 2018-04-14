@@ -1,8 +1,9 @@
 package Framework.Model;
 
 import Framework.GameManager;
+import Framework.HelperClasses.CommandHandlerListener;
 
-public class GameModel extends Model {
+public abstract class GameModel extends Model {
 
     private GameManager gameManager;
 

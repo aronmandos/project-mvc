@@ -1,4 +1,6 @@
-package Framework.HelperClasses;
+package Framework;
+
+import Framework.HelperClasses.CommandHandler;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -9,7 +11,7 @@ import java.util.concurrent.Executors;
 /**
  * An object that handles the connection with the server.
  */
-public class Server {
+public class ServerManager {
     private Socket socket;
 
     private String host;
@@ -19,19 +21,19 @@ public class Server {
     /**
      * A server connection.
      *
-     * @param host The hostname of the server
-     * @param port The port of the connection
+     *
      */
-    public Server(String host, int port) {
-        this.host = host;
-        this.port = port;
-
+    public ServerManager() {
     }
 
     /**
      * Connects to the server.
+     * @param host The hostname of the server
+     * @param port The port of the connection
      */
-    public void connect(CommandHandler handler) {
+    public void connect(String host, int port, CommandHandler handler) {
+        this.host = host;
+        this.port = port;
         openSocket();
         if (isConnected) {
             //starts a listener for messages from the server.
@@ -127,7 +129,7 @@ public class Server {
      * A listener for server messages.
      */
     public class MessageListener implements Runnable {
-        Server server;
+        ServerManager serverManager;
         InputStream is;
         BufferedReader br;
         CommandHandler handler;
@@ -135,14 +137,14 @@ public class Server {
         /**
          * Creates a listener for server messages.
          *
-         * @param server The server to listen to.
+         * @param serverManager The server to listen to.
          */
-        public MessageListener(Server server, CommandHandler handler) {
-            this.server = server;
+        public MessageListener(ServerManager serverManager, CommandHandler handler) {
+            this.serverManager = serverManager;
             this.handler = handler;
 
             try {
-                is = server.getSocket().getInputStream();
+                is = serverManager.getSocket().getInputStream();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -166,14 +168,14 @@ public class Server {
                     //null means the connection was lost.
                     if (line == null) {
                         System.out.println("connection lost");
-                        server.disconnect();
+                        serverManager.disconnect();
                         run = false;
                     }
 
                     this.handler.handle(line);
 
                 } catch (IOException exception) {
-                    server.disconnect();
+                    serverManager.disconnect();
                     run = false;
                 }
             } while (run);
