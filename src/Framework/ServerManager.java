@@ -1,6 +1,8 @@
 package Framework;
 
 import Framework.HelperClasses.CommandHandler;
+import Framework.HelperClasses.CommandHandlerListener;
+import Framework.Model.MenuModel;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -12,6 +14,8 @@ import java.util.concurrent.Executors;
  * An object that handles the connection with the server.
  */
 public class ServerManager {
+
+    private final CommandHandler commandHandler;
     private Socket socket;
 
     private String host;
@@ -24,6 +28,7 @@ public class ServerManager {
      *
      */
     public ServerManager() {
+        this.commandHandler = new CommandHandler();
     }
 
     /**
@@ -31,14 +36,15 @@ public class ServerManager {
      * @param host The hostname of the server
      * @param port The port of the connection
      */
-    public void connect(String host, int port, CommandHandler handler) {
+    public void connect(String host, int port) {
         this.host = host;
         this.port = port;
+
         openSocket();
         if (isConnected) {
             //starts a listener for messages from the server.
             ExecutorService executor = Executors.newFixedThreadPool(1);
-            executor.execute(new MessageListener(this, handler));
+            executor.execute(new MessageListener(this, this.commandHandler));
         }
 
     }
@@ -123,6 +129,15 @@ public class ServerManager {
             System.out.println("Could not send \"" +input +"\" to server");
             exception.printStackTrace();
         }
+    }
+
+
+    public CommandHandler getCommandHandler() {
+        return commandHandler;
+    }
+
+    public void addCommandHandlerListener(CommandHandlerListener listener) {
+        commandHandler.addListener(listener);
     }
 
     /**

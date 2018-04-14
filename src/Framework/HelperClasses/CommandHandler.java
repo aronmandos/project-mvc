@@ -196,9 +196,12 @@ public class CommandHandler {
         int[] indexes = getQuotationMarkIndexes(message, 6);
 
         String player = message.substring(indexes[0]+1, indexes[1]);
-        String details = message.substring(indexes[2]+1, indexes[3]);
-        String move = message.substring(indexes[4]+1, indexes[5]);
+        String move = message.substring(indexes[2]+1, indexes[3]);
+        String details = message.substring(indexes[4]+1, indexes[5]);
 
+        for (CommandHandlerListener listener : listeners) {
+            listener.recieveMove(player, move, details);
+        }
         //TODO handle player move
     }
 

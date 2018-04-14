@@ -23,5 +23,7 @@ public abstract class GameController<M extends GameModel>extends Controller<Game
         //TODO initialize game.
     }
 
+    public abstract void handleSquareClick(int x, int y, boolean primary);
+    public abstract void handleMove(String player, String details, String move);
 }
 

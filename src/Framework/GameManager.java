@@ -16,17 +16,22 @@ public class GameManager implements CommandHandlerListener {
     private GameModel model;
     private GameController controller;
     private GameView view;
-    public StageManager stageManager;
+    private StageManager stageManager;
+    private ServerManager serverManager;
 
-    public GameManager(StageManager stageManager) {
+    public GameManager(StageManager stageManager, ServerManager serverManager) {
         this.stageManager = stageManager;
+        this.serverManager = serverManager;
         gameList = new HashMap<>();
+
+        this.serverManager.addCommandHandlerListener(this);
         buildGameList();
     }
 
     public boolean loadGame(String gameName) {
         AbstractGameModule module = gameList.get(gameName);
 
+        System.out.println("loading module: " + gameName);
         if (module == null) {
             System.out.println("no such game: " + gameName);
             return false;
@@ -37,7 +42,7 @@ public class GameManager implements CommandHandlerListener {
 
             this.stageManager.addView(this.view);
             //loaded game
-
+            System.out.println("loaded module: " + gameName + this.model + this.controller + this.view);
 
             return true;
         }
@@ -78,6 +83,14 @@ public class GameManager implements CommandHandlerListener {
     @Override
     public void receiveChallenge(String challenger, String challengeNumber, String gameType) {
         //do nothing
+    }
+
+    @Override
+    public void recieveMove(String player, String move, String details) {
+        //TODO handle move
+        //TODO translate data to Move object!
+        System.out.println("Move recieved: "+ player +"|"+ move + "|"+ details + " "+ this.controller);
+        this.controller.handleMove(player, move, details);
     }
 
 

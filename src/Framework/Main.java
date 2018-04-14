@@ -16,7 +16,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		ServerManager serverManager = new ServerManager();
 		StageManager stageManager = new StageManager(primaryStage);
-		GameManager gameManager = new GameManager(stageManager);
+		GameManager gameManager = new GameManager(stageManager, serverManager);
 
 		//menu
 		MenuModel menuModel = new MenuModel(stageManager, serverManager, gameManager);
