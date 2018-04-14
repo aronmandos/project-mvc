@@ -43,4 +43,13 @@ public class MenuController extends Controller<MenuModel> {
     public void goToGame(String game) {
         this.model.openGame(game);
     }
+
+    public void loginToServer(String playerName) {
+        model.sendToServer("login " + playerName);
+        model.setPlayerName(playerName);
+    }
+
+    public void sendChallenge(String opponentName, String gameType) {
+        model.sendToServer("challenge \"" + opponentName + "\" \"" + gameType + "\"");
+    }
 }

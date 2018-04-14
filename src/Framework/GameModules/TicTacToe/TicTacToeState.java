@@ -13,7 +13,6 @@ public class TicTacToeState extends GameState {
 
     public TicTacToeState(Board2d board, int playerOnTurn){
         super(board, playerOnTurn);
-
     }
 
     /**

@@ -4,10 +4,12 @@ import Framework.GameManager;
 import Framework.HelperClasses.*;
 import Framework.StageManager;
 
+import java.util.ArrayList;
+
 /**
  * The main model for the application.
  */
-public class MenuModel extends Model {
+public class MenuModel extends Model implements CommandHandlerListener{
     private String host = "localhost";
     private int port = 7789;
     private AbstractBoard currentGame;
@@ -15,6 +17,9 @@ public class MenuModel extends Model {
 
     private StageManager stageManager;
     private GameManager gameManager;
+    private String playerName;
+
+    private ArrayList<Challenge> challenges;
 
     /**
      * The main model for the application.
@@ -22,6 +27,7 @@ public class MenuModel extends Model {
     public MenuModel(StageManager stageManager, GameManager gameManager) {
         this.stageManager = stageManager;
         this.gameManager = gameManager;
+        this.challenges = new ArrayList<>();
 
         server = new Server(host, port);
         notifyViews();
@@ -89,7 +95,7 @@ public class MenuModel extends Model {
      */
     public void connectServer(String host, int port) {
         server = new Server(host, port);
-        server.connect();
+        server.connect(new CommandHandler());
         notifyViews();
     }
 
@@ -121,6 +127,20 @@ public class MenuModel extends Model {
      */
     public void sendToServer(String input) {
         server.send(input);
+        notifyViews();
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
+
+    public String getPlayerName() {
+        return this.playerName;
+    }
+
+    @Override
+    public void receiveChallenge(String challenger, String challengeNumber, String gameType) {
+        this.challenges.add(new Challenge(challenger, challengeNumber, gameType));
         notifyViews();
     }
 }

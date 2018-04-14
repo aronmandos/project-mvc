@@ -13,7 +13,7 @@ public class Main extends Application {
 	 * @throws Exception
 	 */
 	@Override
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage) throws Exception {
 		StageManager stageManager = new StageManager(primaryStage);
 		GameManager gameManager = new GameManager(stageManager);
 

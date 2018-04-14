@@ -31,12 +31,12 @@ public class Server {
     /**
      * Connects to the server.
      */
-    public void connect() {
+    public void connect(CommandHandler handler) {
         openSocket();
         if (isConnected) {
             //starts a listener for messages from the server.
             ExecutorService executor = Executors.newFixedThreadPool(1);
-            executor.execute(new MessageListener(this));
+            executor.execute(new MessageListener(this, handler));
         }
 
     }
@@ -137,9 +137,9 @@ public class Server {
          *
          * @param server The server to listen to.
          */
-        public MessageListener(Server server) {
+        public MessageListener(Server server, CommandHandler handler) {
             this.server = server;
-            this.handler = new CommandHandler();
+            this.handler = handler;
 
             try {
                 is = server.getSocket().getInputStream();
