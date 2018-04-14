@@ -1,6 +1,7 @@
 package Framework.GameModules.TicTacToe;
 
 import Framework.GameManager;
+import Framework.HelperClasses.GameState;
 import Framework.HelperClasses.board2d.Board2d;
 import Framework.HelperClasses.Move;
 import Framework.Model.GameModel;
@@ -20,6 +21,23 @@ public class TicTacToeModel extends GameModel {
 
     public void startGame(int playerOnTurn) {
         state = new TicTacToeState(new Board2d(3, 3), playerOnTurn);
+    }
+
+    @Override
+    public GameState getGameState() {
+        return state;
+    }
+
+    @Override
+    public void implementMove(int playerThatMoved, String move) {
+        //TODO change state
+        state.getBoard().setPlayerAtPosition(1, 1, playerThatMoved);
+    }
+
+    @Override
+    public void didMove(int x, int y) {
+        //TODO check for valid move
+        gameManager.sendMove(x, y);
     }
 
     /**

@@ -19,6 +19,7 @@ public class TicTacToeController extends GameController<TicTacToeModel> {
     public void handleSquareClick(int x, int y, boolean primary){
         //TODO hanlde
         System.out.println(" "+ x + y + primary);
+        model.didMove(x, y);
     }
 
 
@@ -26,5 +27,9 @@ public class TicTacToeController extends GameController<TicTacToeModel> {
     public void handleMove(String player, String details, String move) {
         //TODO handle move
         System.out.println("Move binnengekomen: "+ player + "|"+ details +"|"+ move);
+
+        this.model.implementMove(1, move);
+        //TODO translate move to Move object
+        //TODO translate playername to int (or make Player object)
     }
 }

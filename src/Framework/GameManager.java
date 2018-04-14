@@ -96,8 +96,10 @@ public class GameManager implements CommandHandlerListener {
     @Override
     public void receiveMatchStart(String playerToMove, String gameType, String opponent) {
         // this.loadGame(gameType); TODO hou zelfde namen aan of vertaal gamenaam
+        System.out.println("receiveMatchStart: "+ playerToMove +"|"+ gameType + "|"+ opponent + " "+ this.controller);
         this.loadGame("ttt");
-        this.startGame(Integer.parseInt(playerToMove));
+        this.startGame(1); //TODO translate playername to playerID
+        this.openGame("ttt");
     }
 
     private void startGame(int playerToMove) {
@@ -105,4 +107,8 @@ public class GameManager implements CommandHandlerListener {
     }
 
 
+    public void sendMove(int x, int y) {
+        int move = this.model.getGameState().getBoard().coordinatesToInt(x, y);
+        serverManager.send("move "+ move);
+    }
 }

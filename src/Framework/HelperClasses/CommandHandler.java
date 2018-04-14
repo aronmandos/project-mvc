@@ -33,16 +33,16 @@ public class CommandHandler {
                 System.out.println("CommandHandler: PlayerList recieved");
                 parsePlayerList(message);
 
-            } else if(message.contains("SVR GAME MATCH {GAMETYPE: ") &&
-                    message.contains("PLAYERTOMOVE: \"") &&
+            } else if(message.contains("SVR GAME MATCH {PLAYERTOMOVE: ") &&
+                    message.contains("GAMETYPE: \"") &&
                     message.contains("OPPONENT: \"")){
 
                 System.out.println("CommandHandler: Match recieved");
                 parseMatch(message);
 
             } else if(message.contains("SVR GAME CHALLENGE {CHALLENGER: ") &&
-                    message.contains("GAMETYPE: \"") &&
-                    message.contains("CHALLENGENUMBER: \"")){
+                    message.contains("CHALLENGENUMBER: \"") &&
+                    message.contains("GAMETYPE: \"")){
 
                 System.out.println("CommandHandler: Challenge recieved");
                 parseChallenge(message);

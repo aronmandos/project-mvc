@@ -17,6 +17,10 @@ public class Board2d {
         this.positions = new int[this.rows][this.columns];
     }
 
+    public void updateBoardWithBoard(Board2d otherBoard){
+        this.positions = otherBoard.getPositions();
+    }
+
     /**
      * Whether the given position is whitin the board.
      * @param x X coordinate

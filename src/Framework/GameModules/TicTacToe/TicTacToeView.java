@@ -31,6 +31,8 @@ public class TicTacToeView extends GameView<TicTacToeController, TicTacToeModel>
      */
     @Override
     public void updateView() {
+        //TODO weergave updaten werkt nog niet.
+        displayBoard.updateBoardWithBoard(model.state.getBoard());
         board2dPane.updateSquares();
     }
 

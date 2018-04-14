@@ -1,6 +1,7 @@
 package Framework;
 
 import Framework.View.View;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -24,7 +25,10 @@ public class StageManager {
     }
 
     public void showScene(String name){
-        stage.setScene(this.getScene(name));
+        Platform.runLater(() -> {
+            stage.setScene(this.getScene(name));
+        });
+
     }
 
     public Scene getScene(String name) {
