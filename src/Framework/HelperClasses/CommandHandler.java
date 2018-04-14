@@ -126,14 +126,18 @@ public class CommandHandler {
 
     private void parseMatch(String message) {
 //		S: SVR GAME MATCH {GAMETYPE: "<speltype>", PLAYERTOMOVE: "<naam speler1>", OPPONENT: "<naam tegenstander>"}
+//		S: SVR GAME MATCH {PLAYERTOMOVE: "Sinterklaas", GAMETYPE: "Tic-tac-toe", OPPONENT: "Sinterklaas"}
 
         int[] indexes = getQuotationMarkIndexes(message, 6);
 
-        String gameType = message.substring(indexes[0]+1, indexes[1]);
-        String playerToMove = message.substring(indexes[2]+1, indexes[3]);
+        String playerToMove = message.substring(indexes[0]+1, indexes[1]);
+        String gameType = message.substring(indexes[2]+1, indexes[3]);
         String opponent = message.substring(indexes[4]+1, indexes[5]);
 
         //TODO handle match, check if game is supported, start and open game
+        for (CommandHandlerListener listener : listeners) {
+            listener.receiveMatchStart(playerToMove, gameType, opponent);
+        }
     }
 
     private void parseChallenge(String message){

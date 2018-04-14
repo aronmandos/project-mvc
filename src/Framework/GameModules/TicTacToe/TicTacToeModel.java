@@ -16,7 +16,10 @@ public class TicTacToeModel extends GameModel {
 
     public TicTacToeModel(GameManager gameManager){
         super(gameManager);
-        state = new TicTacToeState(new Board2d(3, 3), 0);
+    }
+
+    public void startGame(int playerOnTurn) {
+        state = new TicTacToeState(new Board2d(3, 3), playerOnTurn);
     }
 
     /**

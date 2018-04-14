@@ -13,14 +13,15 @@ public class TicTacToeView extends GameView<TicTacToeController, TicTacToeModel>
 
     private static final String name = "ttt";
     private Board2dPane board2dPane;
+    private Board2d displayBoard;
 
     public TicTacToeView(TicTacToeController controller, TicTacToeModel model) {
         super(controller, model);
+        displayBoard = new Board2d(3, 3); //TODO update this board when state changes
 
         Label label = new Label("TicTacToe");
-        Board2d x = model.state.getBoard();
-        System.out.println("tttview: " + x.getColumns() );
-        board2dPane = new Board2dPane(model.state.getBoard());
+        System.out.println("tttview: " + displayBoard.getColumns() );
+        board2dPane = new Board2dPane(displayBoard);
         board2dPane.addListener(this);
         this.getChildren().addAll(label, board2dPane.createElement());
     }

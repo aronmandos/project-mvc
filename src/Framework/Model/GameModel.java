@@ -15,4 +15,6 @@ public abstract class GameModel extends Model {
         gameManager.openMenu();
     }
 
+    public abstract void startGame(int playerOnTurn);
+
 }

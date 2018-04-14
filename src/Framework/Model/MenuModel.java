@@ -152,6 +152,11 @@ public class MenuModel extends Model implements CommandHandlerListener{
         //do nothing
     }
 
+    @Override
+    public void receiveMatchStart(String playerToMove, String gameType, String opponent) {
+        //do nothing
+    }
+
     public ArrayList<Challenge> getChallenges() {
         return challenges;
     }

@@ -13,27 +13,32 @@ public class Main extends Application {
 	 * @throws Exception
 	 */
 	@Override
-	public void start(Stage primaryStage) throws Exception {
-		ServerManager serverManager = new ServerManager();
-		StageManager stageManager = new StageManager(primaryStage);
-		GameManager gameManager = new GameManager(stageManager, serverManager);
+	public void start(Stage primaryStage) {
+		try {
+			ServerManager serverManager = new ServerManager();
+			StageManager stageManager = new StageManager(primaryStage);
+			GameManager gameManager = new GameManager(stageManager, serverManager);
 
-		//menu
-		MenuModel menuModel = new MenuModel(stageManager, serverManager, gameManager);
-		MenuController menuController = new MenuController(menuModel);
-		System.out.println("menu views");
-		MenuView menuView = new MenuView(menuController, menuModel);
-		System.out.println("created view: " + menuView.getName());
-		stageManager.addView(menuView);
+			//menu
+			MenuModel menuModel = new MenuModel(stageManager, serverManager, gameManager);
+			MenuController menuController = new MenuController(menuModel);
+			System.out.println("menu views");
+			MenuView menuView = new MenuView(menuController, menuModel);
+			System.out.println("created view: " + menuView.getName());
+			stageManager.addView(menuView);
 
-		//TTT
+			//TTT
 		/*GameModel gameModel = new GameModel();
 		GameController gameController = new GameController(gameModel, stageManager);
 		GameView gameView = new GameView(gameController, gameModel);
 		stageManager.addView(gameView);*/
 
-		stageManager.showScene("menu");
-		primaryStage.show();
+			stageManager.showScene("menu");
+			primaryStage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 
 	}
 

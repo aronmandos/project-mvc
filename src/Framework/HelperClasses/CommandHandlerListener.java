@@ -6,4 +6,5 @@ public interface CommandHandlerListener {
 
     void recieveMove(String player, String details, String move);
 
+    void receiveMatchStart(String playerToMove, String gameType, String opponent);
 }
