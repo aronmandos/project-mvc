@@ -7,8 +7,8 @@ import Framework.HelperClasses.board2d.Board2d;
  */
 public abstract class GameState {
 
-    Board2d board;
-    int playerOnTurn;
+    private Board2d board;
+    private int playerOnTurn;
 
     public GameState(Board2d board, int playerOnTurn) {
         this.board = board;
@@ -29,6 +29,10 @@ public abstract class GameState {
      */
     public int getPlayerOnTurn() {
         return playerOnTurn;
+    }
+
+    public void setPlayerOnTurn(int playerOnTurn) {
+         this.playerOnTurn = playerOnTurn;
     }
 
     /**

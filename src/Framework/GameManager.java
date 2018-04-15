@@ -4,10 +4,13 @@ import Framework.Controller.GameController;
 import Framework.GameModules.AbstractGameModule;
 import Framework.GameModules.TicTacToe.TicTacToeModule;
 import Framework.HelperClasses.CommandHandlerListener;
+import Framework.HelperClasses.GameState;
+import Framework.HelperClasses.MoveString;
 import Framework.Model.GameModel;
 import Framework.View.GameView;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GameManager implements CommandHandlerListener {
@@ -19,10 +22,13 @@ public class GameManager implements CommandHandlerListener {
     private StageManager stageManager;
     private ServerManager serverManager;
 
+    private ArrayList<MoveString> moves;
+
     public GameManager(StageManager stageManager, ServerManager serverManager) {
         this.stageManager = stageManager;
         this.serverManager = serverManager;
-        gameList = new HashMap<>();
+        this.gameList = new HashMap<>();
+        this.moves = new ArrayList<>();
 
         this.serverManager.addCommandHandlerListener(this);
         buildGameList();
@@ -85,11 +91,16 @@ public class GameManager implements CommandHandlerListener {
         //do nothing
     }
 
+    public void getTurn(String turnmessage) {
+        //do nothing
+    }
+
     @Override
-    public void recieveMove(String player, String move, String details) {
-        //TODO handle move
-        //TODO translate data to Move object!
-        System.out.println("Move recieved: "+ player +"|"+ move + "|"+ details + " "+ this.controller);
+    public void receiveMove(String player, String move, String details) {
+        //handle move
+        //translate data to Move object!
+        this.moves.add(new MoveString(player, move, details));
+        System.out.println("Move received: "+ player +"|"+ move + "|"+ details + " "+ this.controller);
         this.controller.handleMove(player, move, details);
     }
 
@@ -106,9 +117,15 @@ public class GameManager implements CommandHandlerListener {
         this.model.startGame(playerToMove);
     }
 
-
     public void sendMove(int x, int y) {
         int move = this.model.getGameState().getBoard().coordinatesToInt(x, y);
+
+        if (this.model.getGameState().getPlayerOnTurn() == 1) {
+            this.model.getGameState().setPlayerOnTurn(2);
+        } else if (this.model.getGameState().getPlayerOnTurn() == 2) {
+            this.model.getGameState().setPlayerOnTurn(1);
+        }
+
         serverManager.send("move "+ move);
     }
 }

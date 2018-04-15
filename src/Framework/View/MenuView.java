@@ -37,7 +37,7 @@ public class MenuView extends View<MenuController, MenuModel>{
         Button loginBtn = new Button("Login");
 
         Label challengeLabel = new Label("Challenge");
-        TextField challengeField = new TextField("Sinterklaas"); // TODO : Vervang dit door een select van de playerlist.
+        TextField challengeField = new TextField("Zwarte Piet"); // TODO : Vervang dit door een select van de playerlist.
         Button challengeBtn = new Button("Challenge");
 
         Label testLabel = new Label("Server test");

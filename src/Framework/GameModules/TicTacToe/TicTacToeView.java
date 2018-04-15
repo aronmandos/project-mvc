@@ -53,7 +53,7 @@ public class TicTacToeView extends GameView<TicTacToeController, TicTacToeModel>
      * @param primary primary mouse button or secondary
      */
     @Override
-    public void squareWasClicked(int x, int y, boolean primary) {
-        controller.handleSquareClick(x, y, primary);
+    public void squareWasClicked(int x, int y, int player, boolean primary) {
+        controller.handleSquareClick(x, y, player, primary);
     }
 }

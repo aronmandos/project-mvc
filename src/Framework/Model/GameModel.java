@@ -34,5 +34,5 @@ public abstract class GameModel extends Model {
 
     public abstract void implementMove(int i, String move);
 
-    public abstract void didMove(int x, int y);
+    public abstract void didMove(int x, int y, int player);
 }

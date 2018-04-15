@@ -140,15 +140,25 @@ public class MenuModel extends Model implements CommandHandlerListener{
         return this.playerName;
     }
 
+
+    /**
+     * Adds challenges received from the server.
+     * @param challenger The challenging opponent.
+     * @param challengeNumber The challenge ID-number.
+     * @param gameType The name of the game.
+     */
     @Override
     public void receiveChallenge(String challenger, String challengeNumber, String gameType) {
         this.challenges.add(new Challenge(challenger, challengeNumber, gameType));
-        System.out.println("Even kijken...");
         notifyViews();
     }
 
     @Override
-    public void recieveMove(String player, String details, String move) {
+    public void receiveMove(String player, String details, String move) {
+        //do nothing
+    }
+
+    public void getTurn(String turnMessage){
         //do nothing
     }
 

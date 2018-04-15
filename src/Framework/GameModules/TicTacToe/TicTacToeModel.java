@@ -30,14 +30,20 @@ public class TicTacToeModel extends GameModel {
     }
 
     /**
-     * acts on a move recieved from the server (both moves from player as opponent.)
-     * @param playerThatMoved
+     * acts on a move received from the server (both moves from player as opponent.)
+     * @param player
      * @param move
      */
     @Override
-    public void implementMove(int playerThatMoved, String move) {
+    public void implementMove(int player, String move) {
         //TODO change state
-        state.getBoard().setPlayerAtPosition(1, 1, playerThatMoved);
+        state.getBoard().setPlayerAtPosition(1, 1, player);
+        /*if (player == 1) {
+            state.setPlayerOnTurn(2);
+            System.out.println("Doet 'ie het?");
+        } else if (player == 2) {
+            state.setPlayerOnTurn(1);
+        }*/
         notifyViews();
     }
 
@@ -48,9 +54,12 @@ public class TicTacToeModel extends GameModel {
      * @param y
      */
     @Override
-    public void didMove(int x, int y) {
-        //TODO check for valid move
-        gameManager.sendMove(x, y);
+    public void didMove(int x, int y, int player) {
+        //check for valid move
+        if (state.isValidMove(x, y, player)) {
+            gameManager.sendMove(x, y);
+            notifyViews();
+        }
     }
 
     /**

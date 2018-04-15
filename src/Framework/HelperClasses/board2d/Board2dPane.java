@@ -70,9 +70,9 @@ public class Board2dPane {
      * @param y y coordinate
      * @param primary primary mouse button or secondary
      */
-    private void squareClick(int x, int y, boolean primary){
+    private void squareClick(int x, int y, int player, boolean primary){
         for(Board2dListener listener: this.listeners){
-            listener.squareWasClicked(x, y, primary);
+            listener.squareWasClicked(x, y, player, primary);
         }
     }
 
@@ -123,13 +123,10 @@ public class Board2dPane {
             square.setStroke(Color.BLACK);
             square.setOnMouseClicked(event -> {
                 if(event.getButton() == MouseButton.PRIMARY) {
-                    squareClick(x, y, true);
+                    squareClick(x, y, 1, true);
+                } else if(event.getButton() == MouseButton.SECONDARY) {
+                    squareClick(x, y, 2, false);
                 }
-
-                if(event.getButton() == MouseButton.SECONDARY) {
-                    squareClick(x, y, false);
-                }
-
             });
             getChildren().addAll(square, text);
         }

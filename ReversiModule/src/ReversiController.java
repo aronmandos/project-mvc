@@ -8,7 +8,7 @@ public class ReversiController extends GameController {
     }
 
     @Override
-    public void handleSquareClick(int x, int y, boolean primary) {
+    public void handleSquareClick(int x, int y, int player, boolean primary) {
         //TODO
     }
 

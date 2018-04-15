@@ -25,7 +25,7 @@ public class ReversiModel extends GameModel {
     }
 
     @Override
-    public void didMove(int x, int y) {
+    public void didMove(int x, int y, int player) {
 
     }
 }

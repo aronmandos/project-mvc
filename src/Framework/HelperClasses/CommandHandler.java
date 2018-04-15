@@ -1,7 +1,5 @@
 package Framework.HelperClasses;
 
-import Framework.HelperClasses.board2d.Board2dListener;
-
 import java.util.ArrayList;
 
 public class CommandHandler {
@@ -16,7 +14,7 @@ public class CommandHandler {
         if (message == null) {
             System.out.println("null van server");
         } else {
-            System.out.println("Client: recieved from server: " + message);
+            System.out.println("Client: received from server: " + message);
             if(message == "" || message == null){
 
             } else if(message.contains("Strategic Game Server [")){
@@ -25,26 +23,26 @@ public class CommandHandler {
 
             } else if(message.contains("SVR GAMELIST [")){
 
-                System.out.println("CommandHandler: game list recieved");
+                System.out.println("CommandHandler: game list received");
                 parseGameList(message);
 
             } else if(message.contains("SVR PLAYERLIST [")){
 
-                System.out.println("CommandHandler: PlayerList recieved");
+                System.out.println("CommandHandler: PlayerList received");
                 parsePlayerList(message);
 
             } else if(message.contains("SVR GAME MATCH {PLAYERTOMOVE: ") &&
                     message.contains("GAMETYPE: \"") &&
                     message.contains("OPPONENT: \"")){
 
-                System.out.println("CommandHandler: Match recieved");
+                System.out.println("CommandHandler: Match received");
                 parseMatch(message);
 
             } else if(message.contains("SVR GAME CHALLENGE {CHALLENGER: ") &&
                     message.contains("CHALLENGENUMBER: \"") &&
                     message.contains("GAMETYPE: \"")){
 
-                System.out.println("CommandHandler: Challenge recieved");
+                System.out.println("CommandHandler: Challenge received");
                 parseChallenge(message);
 
             } else if(message.contains("SVR GAME ") &&
@@ -59,7 +57,7 @@ public class CommandHandler {
 
             } else if(message.contains("SVR GAME MOVE {PLAYER: ")){
 
-                System.err.println("CommandHandler: move received");
+                System.out.println("CommandHandler: move received");
                 parseMove(message);
 
             } else if(message.contains("SVR GAME CHALLENGE CANCELLED {CHALLENGENUMBER: ")){
@@ -155,10 +153,8 @@ public class CommandHandler {
         for (CommandHandlerListener listener : listeners) {
             listener.receiveChallenge(challenger, challengenumber, gametype);
         }
-
-        //TODO: ask user to accept or decline
-
     }
+
     private void parseChallengeCancel(String message){
 //		S: SVR GAME CHALLENGE CANCELLED {CHALLENGENUMBER: "<uitdaging nummer>"}
 //		S: SVR GAME CHALLENGE CANCELLED {CHALLENGENUMBER: "1"}
@@ -190,6 +186,9 @@ public class CommandHandler {
 
         String turnMessage = message.substring(indexes[0]+1, indexes[1]);
 
+        for (CommandHandlerListener listener : listeners) {
+            listener.getTurn(turnMessage);
+        }
         //TODO handle getting the turn
     }
 
@@ -204,9 +203,9 @@ public class CommandHandler {
         String details = message.substring(indexes[4]+1, indexes[5]);
 
         for (CommandHandlerListener listener : listeners) {
-            listener.recieveMove(player, move, details);
+            listener.receiveMove(player, move, details);
         }
-        //TODO handle player move
+        //handle player move
     }
 
     private void parseWin(String message) {
@@ -228,6 +227,10 @@ public class CommandHandler {
     public void addListener(CommandHandlerListener listener) {
         this.listeners.add(listener);
     }
+
+    /*public void addListenerTicTactoe(TicTacToeListener listener) {
+        this.listenersTicTacToe.add(listener);
+    }*/
 
     /**
      * Removes a listener from this handler

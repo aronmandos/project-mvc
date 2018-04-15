@@ -16,10 +16,10 @@ public class TicTacToeController extends GameController<TicTacToeModel> {
      * @param primary primary mouse button or secondary
      */
     @Override
-    public void handleSquareClick(int x, int y, boolean primary){
+    public void handleSquareClick(int x, int y, int player, boolean primary){
         //TODO hanlde
         System.out.println(" "+ x + y + primary);
-        model.didMove(x, y);
+        model.didMove(x, y, player);
     }
 
 
@@ -29,6 +29,7 @@ public class TicTacToeController extends GameController<TicTacToeModel> {
         System.out.println("Move binnengekomen: "+ player + "|"+ details +"|"+ move);
 
         this.model.implementMove(1, move);
+
         //TODO translate move to Move object
         //TODO translate playername to int (or make Player object)
     }

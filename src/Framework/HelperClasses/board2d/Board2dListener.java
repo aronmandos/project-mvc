@@ -9,5 +9,5 @@ public interface Board2dListener {
      * @param y y coordinate
      * @param primary primary mouse button or secondary
      */
-    void squareWasClicked(int x, int y, boolean primary);
+    void squareWasClicked(int x, int y, int player, boolean primary);
 }
